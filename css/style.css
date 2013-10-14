@@ -1,9 +1,22 @@
+html,body {
+  height: 100%;
+}
+
 body {
     padding: 0;
     margin: 0;
-    height: 100%;
 }
 
 #map {
-    height: 1000px;
+    height: 100%;
+}
+
+#stationNode {
+  fill: #BF1D00;
+  stroke: #FFCB00;
+  stroke-width: 1px;
+}
+
+#stationNode:hover {
+  cursor: pointer;
 }
