@@ -10,21 +10,20 @@ id = 0
 with open('cabi_stations_2012_test.csv', 'r') as fr:
 	lines = fr.readlines()
 	lines = [l.strip() for l in lines]
-	stations =  [l.split(',') for l in lines]
+	routes =  [l.split(',') for l in lines]
 
-	for source in stations:
-		for destination in stations:
-			s = ','.join(source[1:])
-			d = ','.join(destination[1:])
-			if (s == d) or (source[0] == 'TERMINAL_N') or (destination[0] == 'TERMINAL_N'):
-				continue
-			else:
-				data = urlopen(URL %(API_KEY, s, d)).read()
-				directions = json.loads(data)
-				shape = directions['route']['shape']['shapePoints']
-				formattedShape = [[shape[i], shape[i-1]] for i, x in enumerate(shape) if (i%2 != 0)]
-				features.append(newFeature %(id, source[0], destination[0], formattedShape))
-				id+=1
+	for r in routes:
+		s = ','.join(r[1:3])
+		d = ','.join(r[4:])
+		if (s == d) or (r[0] == 'sTERMINAL_N'):
+			continue
+		else:
+			data = urlopen(URL %(API_KEY, s, d)).read()
+			directions = json.loads(data)
+			shape = directions['route']['shape']['shapePoints']
+			formattedShape = [[shape[i], shape[i-1]] for i, x in enumerate(shape) if (i%2 != 0)]
+			features.append(newFeature %(id, r[0], r[3], formattedShape))
+			id+=1
 with open('cabi_routes.geojson', 'w') as fw:
 	fw.write(geojson %(','.join(features)))
 
