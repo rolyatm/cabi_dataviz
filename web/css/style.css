@@ -20,3 +20,9 @@ body {
 #stationNode:hover {
   cursor: pointer;
 }
+
+.route {
+	fill: none;
+	stroke: #BF1D00;
+	stroke-width: 2px;
+}

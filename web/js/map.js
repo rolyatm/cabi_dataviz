@@ -1,7 +1,7 @@
 var map = new L.Map("map", {
 		center: [38.89,-77.03],
 		zoom: 12,
-		maxZoom: 17, 
+		maxZoom: 15, 
 		minZoom: 12,
 		maxBounds : [[38.75,-77.33],[39.03,-76.73]]
 	})
@@ -15,8 +15,7 @@ var svg = d3.select("#map").select("svg"),
 	gStations = g.append("g").attr("id", "stations");
 
 d3.json("data/cabi_stations_2012.geojson", function(collection) {
-	console.log(collection);
-	var path = d3.geo.path().projection(project);
+	//console.log(collection);
 
 	var feature = gStations.selectAll("circle")
 		.data(collection.features)
@@ -29,11 +28,12 @@ d3.json("data/cabi_stations_2012.geojson", function(collection) {
 	//popup
 	feature.on("mousedown",function(d){
   		var coordinates = d3.mouse(this);
+		var station = d.properties.TERMINAL_N;
 		console.log(d,coordinates,map.layerPointToLatLng(coordinates))
  		L.popup().setLatLng(map.layerPointToLatLng(coordinates))
            .setContent("<b>" + d.properties.ADDRESS + "</b> is station number " + d.properties.TERMINAL_N)
            .openOn(map);
-		});
+	});
 
 	feature.on("mouseover",function(d){
         d3.select(this).style("cursor", "pointer")
@@ -52,6 +52,24 @@ d3.json("data/cabi_stations_2012.geojson", function(collection) {
 	}
 });
 
+d3.json("data/cabi_routes.geojson", function(collection) {
+	console.log(collection)
+	var path = d3.geo.path().projection(project);
+
+	var feature = gRoutes.selectAll("path")
+		.data(collection.features)
+		.enter().append("path")
+		//.filter(function(d) { return d.properties.from == 31213})
+		.attr("d", path)
+		.attr("class", "route")
+		.style("stroke-width", function(d) { return d.properties.weight});
+
+	map.on("viewreset", reset);
+
+	function reset() {
+		feature.attr("d", path);
+	}
+});
 
 function project(x) {
 	var point = map.latLngToLayerPoint(new L.LatLng(x[1], x[0]));
