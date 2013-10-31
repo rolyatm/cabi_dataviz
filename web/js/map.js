@@ -5,7 +5,7 @@ var map = new L.Map("map", {
 		minZoom: 12,
 		maxBounds : [[38.75,-77.33],[39.03,-76.73]]
 	})
-	.addLayer( new L.TileLayer("http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png"));
+	.addLayer( new L.TileLayer("http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png"));
 
 map._initPathRoot();
 
