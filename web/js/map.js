@@ -2,8 +2,8 @@ var map = new L.Map("map", {
 		center: [38.89,-77.03],
 		zoom: 12,
 		maxZoom: 15, 
-		minZoom: 12,
-		maxBounds : [[38.75,-77.33],[39.03,-76.73]]
+		minZoom: 12
+		//maxBounds : [[38.75,-77.33],[39.03,-76.73]]
 	})
 	.addLayer( new L.TileLayer("http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png"));
 
