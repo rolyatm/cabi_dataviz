@@ -22,14 +22,14 @@ d3.json("data/cabi_stations_2012.geojson", function(collection) {
 		.enter().append("circle")
 		.attr("cx", function(d) { return project(d.geometry.coordinates)[0] })
 		.attr("cy", function(d) { return project(d.geometry.coordinates)[1] })
-		.attr("r", 5)
+		.attr("r", radiusScale(.05))
 		.attr("id", "stationNode");
 
 	//popup
 	feature.on("mousedown",function(d){
   		var coordinates = d3.mouse(this);
 		var station = d.properties.TERMINAL_N;
-		console.log(d,coordinates,map.layerPointToLatLng(coordinates))
+		//console.log(d,coordinates,map.layerPointToLatLng(coordinates))
  		L.popup().setLatLng(map.layerPointToLatLng(coordinates))
            .setContent("<b>" + d.properties.ADDRESS + "</b> is station number " + d.properties.TERMINAL_N)
            .openOn(map);
@@ -37,18 +37,18 @@ d3.json("data/cabi_stations_2012.geojson", function(collection) {
 
 	feature.on("mouseover",function(d){
         d3.select(this).style("cursor", "pointer")
-        .transition().duration(500).attr("r", 10);
+        .transition().duration(500).attr("r", radiusScale(.1));
 	}); 
 	feature.on("mouseout",function(d){
-        d3.select(this).transition().duration(500).attr("r", 5);
+        d3.select(this).transition().duration(500).attr("r", radiusScale(.05));
 	}); 
 
 	map.on("viewreset", reset); 
-	
+
 	function reset() {
 		feature.attr("cx", function(d) { return project(d.geometry.coordinates)[0] })
 			.attr("cy", function(d) { return project(d.geometry.coordinates)[1] })
-			.attr("r", 5)
+			.attr("r", radiusScale(.05));
 	}
 });
 
@@ -74,4 +74,8 @@ d3.json("data/cabi_routes.geojson", function(collection) {
 function project(x) {
 	var point = map.latLngToLayerPoint(new L.LatLng(x[1], x[0]));
 	return [point.x, point.y];
+}
+
+function radiusScale(r) {
+	return r*Math.pow(2, (map.getZoom()/2));
 }
