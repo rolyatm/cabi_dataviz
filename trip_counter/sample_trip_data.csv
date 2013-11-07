@@ -1,5 +1,5 @@
 Duration,Duration(Sec),Start date,Start Station,Start Terminal,End date,End Station,End Terminal,Bike#,Type
-0h 7m 55sec.,475,1/1/2012 0:04,7th & R St NW / Shaw Library,31245,1/1/2012 0:11,7th & T St NW,31109,W01412,Registered
+0h 7m 55sec.,475,1/1/2012 0:04,7th & R St NW / Shaw Library,31245,1/1/2012 0:11,7th & T St NW,99999,W01412,Registered
 0h 19m 22sec.,1162,1/1/2012 0:10,Georgia & New Hampshire Ave NW,31400,1/1/2012 0:29,16th & Harvard St NW,31103,W00524,Casual
 0h 19m 5sec.,1145,1/1/2012 0:10,Georgia & New Hampshire Ave NW,31400,1/1/2012 0:29,16th & Harvard St NW,31103,W00235,Registered
 0h 8m 5sec.,485,1/1/2012 0:15,14th & V St NW,31101,1/1/2012 0:23,Park Rd & Holmead Pl NW,31602,W00864,Registered
