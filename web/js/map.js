@@ -16,10 +16,9 @@ var svg = d3.select("#map").select("svg"),
 	gStations = g.append("g").attr("id", "stations");
 
 d3.json("data/cabi_stations_2012.geojson", function(collection) {
-	//console.log(collection);
 
 	var feature = gStations.selectAll("circle")
-		.data(collection.features)
+	.data(collection.features)
 		.enter().append("circle")
 		.attr("cx", function(d) { return project(d.geometry.coordinates)[0] })
 		.attr("cy", function(d) { return project(d.geometry.coordinates)[1] })
@@ -53,7 +52,7 @@ d3.json("data/cabi_stations_2012.geojson", function(collection) {
 	}
 });
 
-d3.json("data/cabi_routes.geojson", function(collection) {
+d3.json("php/data.php", function(collection) {
 	console.log(collection)
 	var path = d3.geo.path().projection(project);
 

@@ -4,24 +4,28 @@
     $host = "localhost";
     $database="cabi_dataviz";
     
-    $server = mysql_connect($host, $username, $password);
-    $connection = mysql_select_db($database, $server);
-
-    $myquery = "SELECT json FROM `routes` WHERE 's_from' = 31203";
-    $query = mysql_query($myquery);
-    
-    if ( ! $myquery ) {
-        echo mysql_error();
-        die;
+    $db = new mysqli($host, $username, $password, $database);
+    if ($db->connect_errno) {
+      echo "Failed to connect to MySQL: (" . $db->connect_errno . ") " . $db->connect_error;
     }
+
+    $statement = $db->prepare("SELECT `json` FROM `routes` WHERE `s_from` = ?");
+    $station = '31203';
+    $statement->bind_param('s', $station);
+    
+    $statement->execute();
+    $statement->bind_result($routes);
     
     $data = array();
-    
-    for ($x = 0; $x < mysql_num_rows($query); $x++) {
-        $data[] = mysql_fetch_assoc($query);
+    while($statement->fetch()){
+      //printf ($routes);
+      $data[] = $routes;
     }
     
-    echo json_encode($data);     
-     
-    mysql_close($server);
+    $statement->free_result();
+    $statement->close();
+    $db->close();
+    $features = implode(',', $data);
+    $geojson = '{ "type": "FeatureCollection","features": [%s]}';
+    echo sprintf($geojson, $features);
 ?>
