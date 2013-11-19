@@ -10,7 +10,7 @@
     }
 
     $statement = $db->prepare("SELECT `json` FROM `routes` WHERE `s_from` = ?");
-    $station = '31203';
+    $station = $_GET['station'];
     $statement->bind_param('s', $station);
     
     $statement->execute();
