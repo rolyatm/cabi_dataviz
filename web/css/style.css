@@ -1,5 +1,7 @@
 html,body {
   height: 100%;
+  font-family: "Droid Sans";
+  font-size: 14pt;
 }
 
 body {
@@ -7,8 +9,28 @@ body {
     margin: 0;
 }
 
+h1 {
+  font-size: 1em;
+}
+
+h2 {
+  font-size: .8em;
+}
+
+
+#left_frame {
+  float: left;    
+  height: 100%;
+  width: 33%;	
+}
+
+#left_frame h1, h2 {
+  padding-left: 5%;
+}
+
 #map {
-    height: 100%;
+  height: 100%;
+  width: 67%;
 }
 
 #stationNode {

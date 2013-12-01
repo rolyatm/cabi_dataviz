@@ -6,7 +6,7 @@ var map = new L.Map("map", {
 		minZoom: 12
 		//maxBounds : [[38.75,-77.33],[39.03,-76.73]]
 	})
-	.addLayer( new L.TileLayer("http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png"));
+	.addLayer( new L.TileLayer("http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png", {opacity: 0.5}));
 
 map._initPathRoot();
 
@@ -22,26 +22,27 @@ d3.json("data/cabi_stations_2012.geojson", function(collection) {
 		.enter().append("circle")
 		.attr("cx", function(d) { return project(d.geometry.coordinates)[0] })
 		.attr("cy", function(d) { return project(d.geometry.coordinates)[1] })
-		.attr("r", radiusScale(.01))
+		.attr("r", radiusScale(.05))
 		.attr("id", "stationNode");
 
 	//popup
 	feature.on("mousedown",function(d){
   		var coordinates = d3.mouse(this);
 		var station = d.properties.TERMINAL_N;
-		//console.log(d,coordinates,map.layerPointToLatLng(coordinates))
- 		L.popup().setLatLng(map.layerPointToLatLng(coordinates))
-		  .setContent("<b>" + d.properties.ADDRESS + "</b> is station number " + d.properties.TERMINAL_N)
-		  .openOn(map);
+		d3.select("#station_details").html("<b>" + d.properties.ADDRESS + "</b> is station number " + d.properties.TERMINAL_N); 		
+		//L.popup().setLatLng(map.layerPointToLatLng(coordinates))
+		//  .setContent("<b>" + d.properties.ADDRESS + "</b> is station number " + d.properties.TERMINAL_N)
+		//  .openOn(map);
 		showRoutes(station);
 	});
 
 	feature.on("mouseover",function(d){
-        d3.select(this).style("cursor", "pointer")
-        .transition().duration(500).attr("r", radiusScale(.1));
+		d3.select("#station_details").html(d.properties.ADDRESS);        	
+		d3.select(this).style("cursor", "pointer")
+        	.transition().duration(500).attr("r", radiusScale(.1));
 	}); 
 	feature.on("mouseout",function(d){
-        d3.select(this).transition().duration(500).attr("r", radiusScale(.05));
+        	d3.select(this).transition().duration(500).attr("r", radiusScale(.05));
 	}); 
 
 	map.on("viewreset", reset); 
@@ -62,11 +63,12 @@ function showRoutes(station) {
 	var feature = gRoutes.selectAll("path")
 		.data(collection.features)
 		.enter().append("path")
-		//.filter(function(d) { return d.properties.from == 31213})
 		.attr("d", path)
 		.attr("class", "route")
-		.style("stroke-width", function(d) { return d.properties.count/100});
+		.style("stroke-width", function(d) { return (d.properties.count/365 == 0 ? 0 : Math.ceil(d.properties.count/365))});
 
+	//add a filter to dim all stations that are not connected. 
+	//d3.select(gStations).filter(
 	map.on("viewreset", reset);
 
 	function reset() {
