@@ -34,9 +34,13 @@ h2 {
 }
 
 #stationNode {
-  fill: #BF1D00;
+  fill: #FF907D;
   stroke: #FFCB00;
   stroke-width: 1px;
+}
+
+#stationNode_selected {
+  fill: #BF1D00;
 }
 
 #stationNode:hover {
