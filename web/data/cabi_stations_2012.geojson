@@ -178,21 +178,9 @@
 ,
 { "type": "Feature", "id": 89, "properties": { "ADDRESS": "36th & Calvert St NW \/ Glover Park", "TERMINAL_N": "31304" }, "geometry": { "type": "Point", "coordinates": [ -77.070333999386122, 38.922580667640375 ] } }
 ,
-{ "type": "Feature", "id": 90, "properties": { "ADDRESS": "King St Metro", "TERMINAL_N": "31048" }, "geometry": { "type": "Point", "coordinates": [ -77.060719999411177, 38.805766667723915 ] } }
-,
 { "type": "Feature", "id": 91, "properties": { "ADDRESS": "24th & N St NW", "TERMINAL_N": "31255" }, "geometry": { "type": "Point", "coordinates": [ -77.051519999735177, 38.906599667771076 ] } }
 ,
-{ "type": "Feature", "id": 92, "properties": { "ADDRESS": "10th & E St NW", "TERMINAL_N": "31256" }, "geometry": { "type": "Point", "coordinates": [ -77.026063999887683, 38.895913667734774 ] } }
-,
 { "type": "Feature", "id": 93, "properties": { "ADDRESS": "22nd & I St NW \/ Foggy Bottom", "TERMINAL_N": "31257" }, "geometry": { "type": "Point", "coordinates": [ -77.048910999769888, 38.900879667572845 ] } }
-,
-{ "type": "Feature", "id": 94, "properties": { "ADDRESS": "Utah St & 11th St N", "TERMINAL_N": "31049" }, "geometry": { "type": "Point", "coordinates": [ -77.113904999758091, 38.883668667388903 ] } }
-,
-{ "type": "Feature", "id": 95, "properties": { "ADDRESS": "Barton St & 10th St N", "TERMINAL_N": "31050" }, "geometry": { "type": "Point", "coordinates": [ -77.087769999610231, 38.884960667343222 ] } }
-,
-{ "type": "Feature", "id": 96, "properties": { "ADDRESS": "Arlington Blvd & N Queen St", "TERMINAL_N": "31051" }, "geometry": { "type": "Point", "coordinates": [ -77.077293999590111, 38.889364667636848 ] } }
-,
-{ "type": "Feature", "id": 97, "properties": { "ADDRESS": "Lincoln Memorial", "TERMINAL_N": "31258" }, "geometry": { "type": "Point", "coordinates": [ -77.04942599969786, 38.888250667452276 ] } }
 ,
 { "type": "Feature", "id": 102, "properties": { "ADDRESS": "20th & Crystal Dr", "TERMINAL_N": "31002" }, "geometry": { "type": "Point", "coordinates": [ -77.049199999952535, 38.856399667585805 ] } }
 ,
@@ -304,8 +292,6 @@
 ,
 { "type": "Feature", "id": 160, "properties": { "ADDRESS": "14th & G St NW", "TERMINAL_N": "31238" }, "geometry": { "type": "Point", "coordinates": [ -77.031822999991178, 38.898068667484281 ] } }
 ,
-{ "type": "Feature", "id": 161, "properties": { "ADDRESS": "Potomac Ave & 35th St S", "TERMINAL_N": "31052" }, "geometry": { "type": "Point", "coordinates": [ -77.050536999810078, 38.844014667560089 ] } }
-,
 { "type": "Feature", "id": 162, "properties": { "ADDRESS": "Washington Blvd & 7th St N", "TERMINAL_N": "31032" }, "geometry": { "type": "Point", "coordinates": [ -77.091128999504065, 38.88083366763761 ] } }
 ,
 { "type": "Feature", "id": 163, "properties": { "ADDRESS": "Ballston Metro \/ N Stuart & 9th St N", "TERMINAL_N": "31037" }, "geometry": { "type": "Point", "coordinates": [ -77.111767999557173, 38.881043667692538 ] } }
@@ -322,8 +308,6 @@
 ,
 { "type": "Feature", "id": 169, "properties": { "ADDRESS": "Fairfax Dr & Glebe Rd", "TERMINAL_N": "31040" }, "geometry": { "type": "Point", "coordinates": [ -77.115448999717003, 38.882280667432447 ] } }
 ,
-{ "type": "Feature", "id": 170, "properties": { "ADDRESS": "Gallaudet \/ 8th St & Florida Ave NE", "TERMINAL_N": "31508" }, "geometry": { "type": "Point", "coordinates": [ -76.994099999691969, 38.905089667424086 ] } }
-,
 { "type": "Feature", "id": 171, "properties": { "ADDRESS": "20th & L St NW", "TERMINAL_N": "31250" }, "geometry": { "type": "Point", "coordinates": [ -77.044789000055275, 38.903583667485108 ] } }
 ,
 { "type": "Feature", "id": 172, "properties": { "ADDRESS": "12th & L St NW", "TERMINAL_N": "31251" }, "geometry": { "type": "Point", "coordinates": [ -77.028399999665581, 38.903818667700726 ] } }
@@ -332,21 +316,7 @@
 ,
 { "type": "Feature", "id": 174, "properties": { "ADDRESS": "19th & K St NW", "TERMINAL_N": "31253" }, "geometry": { "type": "Point", "coordinates": [ -77.043370000105242, 38.90220366742885 ] } }
 ,
-{ "type": "Feature", "id": 175, "properties": { "ADDRESS": "Prince St & Union St", "TERMINAL_N": "31041" }, "geometry": { "type": "Point", "coordinates": [ -77.040362999721722, 38.803123667620966 ] } }
-,
-{ "type": "Feature", "id": 176, "properties": { "ADDRESS": "Market Square \/ King St & Royal St", "TERMINAL_N": "31042" }, "geometry": { "type": "Point", "coordinates": [ -77.043362999896814, 38.804717667415723 ] } }
-,
-{ "type": "Feature", "id": 177, "properties": { "ADDRESS": "Saint Asaph St & Pendleton  St", "TERMINAL_N": "31043" }, "geometry": { "type": "Point", "coordinates": [ -77.044663999683024, 38.810742667846021 ] } }
-,
-{ "type": "Feature", "id": 178, "properties": { "ADDRESS": "King St & Patrick St", "TERMINAL_N": "31044" }, "geometry": { "type": "Point", "coordinates": [ -77.049882999654088, 38.8053166675382 ] } }
-,
 { "type": "Feature", "id": 179, "properties": { "ADDRESS": "15th & K St NW", "TERMINAL_N": "31254" }, "geometry": { "type": "Point", "coordinates": [ -77.033530000012234, 38.901999667597885 ] } }
-,
-{ "type": "Feature", "id": 180, "properties": { "ADDRESS": "Commerce St & Fayette St", "TERMINAL_N": "31045" }, "geometry": { "type": "Point", "coordinates": [ -77.052930000063654, 38.805647667669241 ] } }
-,
-{ "type": "Feature", "id": 181, "properties": { "ADDRESS": "Henry St & Pendleton St", "TERMINAL_N": "31046" }, "geometry": { "type": "Point", "coordinates": [ -77.050276000120832, 38.811455667332517 ] } }
-,
-{ "type": "Feature", "id": 182, "properties": { "ADDRESS": "Braddock Rd Metro", "TERMINAL_N": "31047" }, "geometry": { "type": "Point", "coordinates": [ -77.052807999962894, 38.814576667349051 ] } }
 ,
 { "type": "Feature", "id": 183, "properties": { "ADDRESS": "12th & Army Navy Dr", "TERMINAL_N": "31008" }, "geometry": { "type": "Point", "coordinates": [ -77.052799999691999, 38.862899667456901 ] } }
 ,
