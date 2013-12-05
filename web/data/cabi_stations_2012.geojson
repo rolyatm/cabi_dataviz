@@ -180,8 +180,6 @@
 ,
 { "type": "Feature", "id": 91, "properties": { "ADDRESS": "24th & N St NW", "TERMINAL_N": "31255" }, "geometry": { "type": "Point", "coordinates": [ -77.051519999735177, 38.906599667771076 ] } }
 ,
-{ "type": "Feature", "id": 93, "properties": { "ADDRESS": "22nd & I St NW \/ Foggy Bottom", "TERMINAL_N": "31257" }, "geometry": { "type": "Point", "coordinates": [ -77.048910999769888, 38.900879667572845 ] } }
-,
 { "type": "Feature", "id": 102, "properties": { "ADDRESS": "20th & Crystal Dr", "TERMINAL_N": "31002" }, "geometry": { "type": "Point", "coordinates": [ -77.049199999952535, 38.856399667585805 ] } }
 ,
 { "type": "Feature", "id": 103, "properties": { "ADDRESS": "15th & Crystal Dr", "TERMINAL_N": "31003" }, "geometry": { "type": "Point", "coordinates": [ -77.050276000082604, 38.86024366759716 ] } }
@@ -315,8 +313,6 @@
 { "type": "Feature", "id": 173, "properties": { "ADDRESS": "21st St & Pennsylvania Ave NW", "TERMINAL_N": "31252" }, "geometry": { "type": "Point", "coordinates": [ -77.046563999784738, 38.901538667433492 ] } }
 ,
 { "type": "Feature", "id": 174, "properties": { "ADDRESS": "19th & K St NW", "TERMINAL_N": "31253" }, "geometry": { "type": "Point", "coordinates": [ -77.043370000105242, 38.90220366742885 ] } }
-,
-{ "type": "Feature", "id": 179, "properties": { "ADDRESS": "15th & K St NW", "TERMINAL_N": "31254" }, "geometry": { "type": "Point", "coordinates": [ -77.033530000012234, 38.901999667597885 ] } }
 ,
 { "type": "Feature", "id": 183, "properties": { "ADDRESS": "12th & Army Navy Dr", "TERMINAL_N": "31008" }, "geometry": { "type": "Point", "coordinates": [ -77.052799999691999, 38.862899667456901 ] } }
 ,

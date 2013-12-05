@@ -14,11 +14,16 @@
 
 <body>
   <div id="left_frame">
-  	<h1>Capital Bikeshare</h1>
-	  <h2>Analysis of 2012 ridership</h2>
-	  <p>Washington, D.C.'s Capital Bikeshare program is a sytem to provide easy access to bikes in DC. In 2012, over 2 million rides weres taken on the system. This is how it happened.</p>
-	<div id="station_details"></div> 
-  </div>  
+  	<div id="left_frame_header">
+          <h1>Capital Bikeshare</h1>
+            <h2>Analysis of 2012 ridership</h2>
+	</div>
+	  <p>Washington, D.C.'s <a href="www.capitalbikeshare.com">Capital Bikeshare</a> program provides easy access to bikes in DC. In 2012, over 2 million rides were taken on the system.<br>This is how it happened.</p>
+         <p><em>Click on a station to see routes between other stations.<br>SHIFT + click on a second station to see details about that specific route.</em></p> 
+       
+	<div id="station_details"></div>
+	<div id="other_station"></div>
+  </div>
   <div id="map"></div>
   <script src="js/d3.v3.min.js" charset="utf-8"></script>
   <script src="js/leaflet.js"></script>

@@ -24,8 +24,36 @@ h2 {
   width: 33%;	
 }
 
-#left_frame h1, h2 {
-  padding-left: 5%;
+#left_frame_header {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  background-color: #929292;
+}
+
+#left_frame h1 {
+  margin-top: 0;
+  margin-bottom: .25em;
+  padding-left: .67em;
+  color: #FFFFFF;
+}
+
+#left_frame h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: .838em;
+  color: #FFFFFF;
+}
+
+#left_frame p {
+  padding-left: 1em;
+  padding-right: 1em;
+  font-size: .67em;
+  
+}
+
+#station_details {
+  margin-top: 2em;
+  margin-left: .5em;
 }
 
 #map {
@@ -33,17 +61,17 @@ h2 {
   width: 67%;
 }
 
-#stationNode {
-  fill: #FF907D;
-  stroke: #FFCB00;
-  stroke-width: 1px;
+.stationNode {
+  fill: #B6B6B6;
+  stroke: #BF1D00;
+  stroke-width: .5px;
 }
 
-#stationNode_selected {
+.stationNode_selected {
   fill: #BF1D00;
 }
 
-#stationNode:hover {
+.stationNode:hover {
   cursor: pointer;
 }
 
