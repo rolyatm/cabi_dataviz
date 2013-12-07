@@ -1,5 +1,6 @@
 //add <p>Directions Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png"></p>
-var stationSelected = false;
+//add time rings around each station
+var stationSelected = 0;
 
 L.CRS.CustomZoom = L.extend({}, L.CRS.EPSG3857, {
   scale: function (zoom) {
@@ -17,15 +18,16 @@ var map = new L.Map("map", {
 })
 //.fitBounds([[38.84,-77.12],[38.948,-76.93]])
 //map.options.crs = L.CRS.EPSG3857;
-.addLayer( new L.TileLayer("http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png", {opacity: 0.3}));
+.addLayer( new L.TileLayer("http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png", {opacity: 0.2}));
 
 map._initPathRoot();
 
 var svg = d3.select("#map").select("svg"),
   g = svg.append("g").attr("class", "leaflet-zoom-hide"),
-  gRoutes = g.append("g").attr("id", "routes"),
+  gRoutes = g.append("g").attr("id", "routes").attr("filter","url(#f1)"),
   gStations = g.append("g").attr("id", "stations");
 
+svg.select(function() { return this.appendChild(document.getElementById("filter"))});
 d3.json("data/cabi_stations_2012.geojson", function(collection) {
   var feature = gStations.selectAll("circle")
     .data(collection.features)
@@ -33,31 +35,44 @@ d3.json("data/cabi_stations_2012.geojson", function(collection) {
     .attr("cx", function(d) { return project(d.geometry.coordinates)[0] })
     .attr("cy", function(d) { return project(d.geometry.coordinates)[1] })
     .attr("r", radiusScale(.05))
-    .attr("class", "stationNode");
+    .attr("class", "stationNode sn_unselected");
+    console.log(feature);
 
 //popup
 feature.on("mousedown",function(d){
   var coordinates = d3.mouse(this);
-  var station = d.properties.TERMINAL_N;
-  stationSelected = true;
-  d3.selectAll(".stationNode").style("fill","B6B6B6").transition().duration(500).attr("r", radiusScale(.05));
-  d3.select("#station_details").html("Station: " + d.properties.ADDRESS); 		
-  //L.popup().setLatLng(map.layerPointToLatLng(coordinates))
-  //  .setContent("<b>" + d.properties.ADDRESS + "</b> is station number " + d.properties.TERMINAL_N)
-  //  .openOn(map);
-  d3.select(this).style("fill", "FFCB00").transition().duration(500).attr("r", radiusScale(.1));
-  showRoutes(station);
+  //checks to see if user click is on a new origin node or a shift+click to select an end
+  if (d3.event.shiftKey) {
+    d3.select(this).attr("class", "stationNode sn_end_selected").style("fill-opacity", "1");
+    d3.selectAll(".sn_end").style("fill-opacity", ".25");
+    d3.selectAll(".sn_unselected").style("fill-opacity", ".25");
+
+    showRoutes(stationSelected, d.properties.TERMINAL_N);
+    
+  }
+  else {
+    stationSelected = d.properties.TERMINAL_N;
+    d3.selectAll(".stationNode").attr("class", "stationNode sn_unselected").style("fill","B6B6B6").style("fill-opacity", "1").transition().duration(500).attr("r", radiusScale(.05));
+    d3.select("#station_details").html("Origin: " + d.properties.ADDRESS); 		
+    d3.select(this).attr("class", "stationNode sn_selected").style("fill", "FFCB00").transition().duration(500).attr("r", radiusScale(.1));
+    showRoutes(stationSelected);
+  }
 });
 
 feature.on("mouseover",function(d){
-  if (stationSelected) {
-    d3.select("#other_station").html("Station: " + d.properties.ADDRESS);
+  if (stationSelected > 0) {
+    d3.select("#other_station").html("Destination: " + d.properties.ADDRESS);
   } else { 
-    d3.select("#station_details").html("Station: " + d.properties.ADDRESS);        	
+    d3.select("#station_details").html("Origin: " + d.properties.ADDRESS);        	
   }
   d3.select(this).style("cursor", "pointer")
     .transition().duration(100).style("stroke-width", 1.5);
+
+  //L.popup().setLatLng(map.layerPointToLatLng(coordinates))
+    //  .setContent("<b>" + d.properties.ADDRESS + "</b> is station number " + d.properties.TERMINAL_N)
+    //  .openOn(map);
 }); 
+
 feature.on("mouseout",function(d){
   d3.select(this).transition().duration(100).style("stroke-width", .5);
 }); 
@@ -67,13 +82,19 @@ map.on("viewreset", reset);
 function reset() {
   feature.attr("cx", function(d) { return project(d.geometry.coordinates)[0] })
     .attr("cy", function(d) { return project(d.geometry.coordinates)[1] })
-    .attr("r", radiusScale(.05));
-  }
+    .attr(function() {
+      if (this.id = "sn_selected") {return "r", radiusScale(.1)}
+      else {return "r", radiusScale(.05)}
+    });
+}
 });
 
-function showRoutes(station) {
+function showRoutes(from_station, to_station) {
   gRoutes.selectAll("path").data([]).exit().remove();
-  d3.json("php/data.php?station=" + station, function(collection) {
+  if(!to_station) {
+    to_station = 0;
+  }
+  d3.json("php/data.php?os=" + from_station + "&ds=" + to_station, function(collection) {
     //console.log(collection);
     var path = d3.geo.path().projection(project);
     var feature = gRoutes.selectAll("path")
@@ -82,15 +103,12 @@ function showRoutes(station) {
       .attr("d", path)
       .attr("class", "route")
       .style("stroke-width", function(d) { return (d.properties.count/365 < 1 ? 0.5 : Math.ceil(d.properties.count/180))});
-      //add a filter to dim all stations that are not connected. 
-      //d3.select(gStations).filter(
+    //step through each route and determines the "to" station and then filters the station nodes that match and highlights
     feature.each(function(d, i) {
       var toStation = d.properties.to;
-      //console.log (d3.select("#stations").selectAll("circle"));
       d3.select("#stations").selectAll("circle").filter(function(d) {
-        //console.log (d);
         return d.properties.TERMINAL_N == toStation;
-      }).style("fill", "FFCB00");      
+      }).style("fill", "FFCB00").attr("class","stationNode sn_end");      
     });
       
     map.on("viewreset", reset);

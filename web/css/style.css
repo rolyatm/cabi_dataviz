@@ -67,8 +67,8 @@ h2 {
   stroke-width: .5px;
 }
 
-.stationNode_selected {
-  fill: #BF1D00;
+#sn_selected {
+  fill: #FFCB00;
 }
 
 .stationNode:hover {

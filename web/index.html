@@ -13,6 +13,17 @@
 </head>
 
 <body>
+  <svg>
+  <defs id="filter">
+    <filter id="f1" x="0" y="0">
+      <feGaussianBlur result="blur" stdDeviation="2.5"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+           <feMergeNode in="SourceGraphic"/>
+         </feMerge>
+    </filter>
+  </defs>
+  </svg>
   <div id="left_frame">
   	<div id="left_frame_header">
           <h1>Capital Bikeshare</h1>

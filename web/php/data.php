@@ -9,10 +9,16 @@
       echo "Failed to connect to MySQL: (" . $db->connect_errno . ") " . $db->connect_error;
     }
 
-    $statement = $db->prepare("SELECT `json` FROM `routes` WHERE `s_from` = ?");
-    $station = $_GET['station'];
-    $statement->bind_param('s', $station);
+    $os = $_GET['os'];
+    $ds = $_GET['ds'];
     
+    if($ds==="0") {
+      $statement = $db->prepare("SELECT `json` FROM `routes` WHERE `s_from` = ?");
+      $statement->bind_param('s', $os);
+    } else {
+      $statement = $db->prepare("SELECT `json` FROM `routes` WHERE `s_from` = ? AND `s_to` = ?");
+      $statement->bind_param('ss', $os, $ds);
+    }
     $statement->execute();
     $statement->bind_result($routes);
     
