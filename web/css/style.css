@@ -58,20 +58,49 @@ h2 {
 #station_details {
 }
 
-#origin, #destination{
-  font-size: .8em;
-  padding-bottom: .5em;
+#origin {
+  font-size: 1em;
+  padding-bottom: 1em;
   padding-right: .5em;
   background: #FFFFFF;
 }
 
-#destination {
-  margin-top: 1em;
+#graph_header {
+  font-size: .85em;
+  padding-left: .25em;
+  padding-bottom: .25em;
 }
+
 
 #graph {
   width: 100%;
 }
+
+#footer {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  height: 30px;
+  padding-bottom: .2em;
+  padding-left: 36.5em;
+  font-size: .67em;
+}
+
+#instructions {
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  padding: .2em;
+  padding-right: .4em;
+  text-align: right;
+  font-size: .67em;
+  background: rgba(255,255,255,.6);
+}
+
+a:link {
+  text-decoration: none;
+}
+
 #map {
   height: 100%;
   width: 67%;
