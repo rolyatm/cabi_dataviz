@@ -28,7 +28,7 @@ h2 {
 #left_frame_header {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
-  background-color: #929292;
+  background-color: #687973;
 }
 #left_frame_intro {
   margin: .67em;
@@ -79,12 +79,12 @@ h2 {
 
 .stationNode {
   fill: #B6B6B6;
-  stroke: #BF1D00;
+  stroke: #40301A;
   stroke-width: .5px;
 }
 
 #sn_selected {
-  fill: #FFCB00;
+  fill: #5063C4;
 }
 
 .stationNode:hover {
@@ -93,7 +93,7 @@ h2 {
 
 .route {
 	fill: none;
-	stroke: #BF1D00;
+	stroke: #40301A;
 	stroke-width: 2px;
 }
 
