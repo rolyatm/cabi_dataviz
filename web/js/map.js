@@ -142,7 +142,7 @@ function showRoutes(from_station, to_station) {
 }
 
 function drawGraph(gData) {
-  d3.selectAll("#graph_header").html("Top 20 Destinations ").append("em").html("(total trips in 2012)");
+  d3.selectAll("#graph_header").html("Top 20 Destinations ").append("em").html("(total rides in 2012)");
   var bars = gBars.selectAll("rect")
     .data(gData)
     .enter()
@@ -278,10 +278,12 @@ function showPopup(from, to) {
       if (collection.info.statuscode != 0) {
         //code to handle bad results.. maybe try ped or car request
       } else {
-        //code to show popup        
-        var distance = collection.route.distance,
+        //code to show popup
+        var rCount = d3.select("#routes").selectAll("path").data()[0].properties.count;
+        console.log (rCount);
+        var  distance = collection.route.distance,
           time = collection.route.formattedTime,
-          turns = sprintf("<h3>%s to %s</h3><strong>Distance</strong> %s miles &nbsp;&nbsp;&nbsp;<strong>Travel time</strong> %s<br><strong>Directions</strong><br>", from[0], to[0], distance.toString().slice(0,-1), time);
+          turns = sprintf("<h3>%s to %s - %s total rides</h3><strong>Distance</strong> %s miles &nbsp;&nbsp;&nbsp;<strong>Travel time</strong> %s<br><strong>Directions</strong><br>", from[0], to[0], rCount, distance.toString().slice(0,-1), time);
         collection.route.legs[0].maneuvers.forEach(function(maneuver){
           turns += sprintf("- %s<br>", maneuver.narrative);
         });
