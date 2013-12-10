@@ -178,8 +178,6 @@
 ,
 { "type": "Feature", "id": 89, "properties": { "ADDRESS": "36th & Calvert St NW \/ Glover Park", "TERMINAL_N": "31304" }, "geometry": { "type": "Point", "coordinates": [ -77.070333999386122, 38.922580667640375 ] } }
 ,
-{ "type": "Feature", "id": 91, "properties": { "ADDRESS": "24th & N St NW", "TERMINAL_N": "31255" }, "geometry": { "type": "Point", "coordinates": [ -77.051519999735177, 38.906599667771076 ] } }
-,
 { "type": "Feature", "id": 102, "properties": { "ADDRESS": "20th & Crystal Dr", "TERMINAL_N": "31002" }, "geometry": { "type": "Point", "coordinates": [ -77.049199999952535, 38.856399667585805 ] } }
 ,
 { "type": "Feature", "id": 103, "properties": { "ADDRESS": "15th & Crystal Dr", "TERMINAL_N": "31003" }, "geometry": { "type": "Point", "coordinates": [ -77.050276000082604, 38.86024366759716 ] } }

@@ -64,12 +64,13 @@ d3.json("data/cabi_stations_2012.geojson", function(collection) {
           station2Selected = d.properties.TERMINAL_N;
           d3.select(this).attr("class", "stationNode sn_end_selected").style("fill-opacity", "1");
           d3.selectAll(".sn_end").style("fill-opacity", ".25");
-          d3.selectAll(".sn_unselected").style("fill-opacity", ".25"); 
+          d3.selectAll(".sn_unselected").style("fill-opacity", ".25");
           showRoutes(stationSelected, d.properties.TERMINAL_N);
           showPopup(stationLUT[stationSelected], stationLUT[d.properties.TERMINAL_N]);
         }    
       }
       else {
+        map.closePopup();
         d3.select("#graphtext").selectAll("text").data([]).exit().remove();
         graph.selectAll("rect").data([]).exit().remove();
         stationSelected = d.properties.TERMINAL_N;
@@ -77,6 +78,7 @@ d3.json("data/cabi_stations_2012.geojson", function(collection) {
         d3.selectAll(".stationNode").attr("class", "stationNode sn_unselected").style("fill","#B6B6B6").style("fill-opacity", "1").transition().duration(500).attr("r", radiusScale(.05));
         d3.select("#origin").html("Station: " + stationLUT[stationSelected][0]); 		
         d3.select(this).attr("class", "stationNode sn_selected").style("fill", "#FFCB00").transition().duration(500).attr("r", radiusScale(.1));
+        map.setView([stationLUT[stationSelected][2],stationLUT[stationSelected][1]]);
         showRoutes(stationSelected);
       }
     });
@@ -282,7 +284,7 @@ function showPopup(from, to) {
         collection.route.legs[0].maneuvers.forEach(function(maneuver){
           turns += sprintf("- %s<br>", maneuver.narrative);
         });
-        var popupOffset = getLatLngDistance(0, 0, 360, 0)[1] / 2;
+        var popupOffset = getLatLngDistance(0, 0, 400, 0)[1] / 2;
         var popup = L.popup({zoomAnimation : false})
           .setLatLng([to[2] > from[2] ? from[2] : to[2], (to[1] > from[1] ? to[1] : from[1]) + popupOffset])
           .setContent(turns)
