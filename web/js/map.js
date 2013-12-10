@@ -84,7 +84,8 @@ d3.json("data/cabi_stations_2012.geojson", function(collection) {
     });
     sfeature.on("mouseover", function(d){
       d3.select(this).style("cursor", "pointer")
-        .transition().duration(100).style("stroke-width", "1.5px");
+        .transition().duration(500).delay(0).each(c_flash);
+        //.transition().duration(100).style("stroke-width", "1.5px");
       add_map_label(d);
       if (stationSelected == 0) { 
         d3.select("#origin").html("Station: " + stationLUT[d.properties.TERMINAL_N][0]);        	
@@ -246,12 +247,12 @@ function c_flash() {
 
 function add_map_label(data) {
   g.append("text")
-        .attr("x", project(data.geometry.coordinates)[0]+2)
-        .attr("y", project(data.geometry.coordinates)[1]-map.getZoom()/2)
-        .attr("filter", "url(#f2)")
+        .attr("x", project(data.geometry.coordinates)[0])
+        .attr("y", project(data.geometry.coordinates)[1]-map.getZoom())
+        .attr("filter", "url(#f3)")
         .style("font-family", "sans-serif")
         .style("font-size", "10pt")
-        .style("fill", "#FFFFFF")
+        .style("fill", "#FF1B24")
         .style("font-weight", "bold")
         .style("text-anchor", "middle")
         .text(stationLUT[data.properties.TERMINAL_N][0]);

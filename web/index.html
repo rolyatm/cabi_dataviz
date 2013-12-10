@@ -29,7 +29,13 @@
         <feMergeNode in="off2Out"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
-
+    </filter>
+    <filter id="f3" x="0" y="0" width="100%" height="100%">
+      <feFlood result="background" flood-color="white" flood-opacity=".6" />
+      <feMerge>
+          <feMergeNode in="background"/>
+          <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
   </defs>
   </svg>
@@ -54,7 +60,7 @@
        </div>
   </div>
   <div id="map"></div>
-  <div id="instructions"><em>Click on a station to see routes between other stations.<br>SHIFT + click on a second station to see details about that specific route.</em></div>
+  <div id="instructions"><em>Click on a station to see how it connects to other stations.<br>SHIFT + click on a second station to see details about that specific route.</em></div>
   <div id="footer">
         Directions courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a><br>
         2012 ride data provided by <a href="http://www.capitalbikeshare.com/" target="_blank">Capital Bikeshare</a> 
