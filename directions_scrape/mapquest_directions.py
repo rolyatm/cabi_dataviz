@@ -5,11 +5,12 @@ import os, json, urllib2
 from time import sleep
 
 API_KEY = 'Fmjtd%7Cluubnuu7lu%2C8s%3Do5-9uya9u'
-URL = 'http://open.mapquestapi.com/directions/v1/route?key=%s&outFormat=json&shapeFormat=raw&generalize=1&routeType=%s&from=%s&to=%s'
+URL = 'http://open.mapquestapi.com/directions/v2/route?key=%s&narrativeType=html&outFormat=json&shapeFormat=raw&generalize=1&routeType=%s&from=%s&to=%s'
 geojson = '{"type": "FeatureCollection","features": [%s]}'
 features = []
 newFeature = '{ "type": "Feature", "id": %s, "properties": { "from": %s, "to": %s, "count": %s}, "geometry": { "type": "LineString", "coordinates": %s } }'
 count = 0
+narrative = []
 
 def requestDirections(url):
 	try:
@@ -30,7 +31,7 @@ def requestDirections(url):
 			fw.write(geojson %(','.join(features)))
 			print data
 
-with open('cabi_trips_2012.csv', 'r') as fr, open('cabi_routes.geojson', 'w') as fw:
+with open('cabi_trips_2012_test.csv', 'r') as fr, open('cabi_routes.geojson', 'w') as fw:
 	lines = fr.readlines()
 	lines = [l.strip() for l in lines]
 	routes =  [l.split(',') for l in lines]
@@ -54,8 +55,19 @@ with open('cabi_trips_2012.csv', 'r') as fr, open('cabi_routes.geojson', 'w') as
 			#pulls out shape points and formats into geojson
 			shape = directions['route']['shape']['shapePoints']
 			formattedShape = [[shape[i], shape[i-1]] for i, x in enumerate(shape) if (i%2 != 0)]
-			features.append(newFeature %(count, r[0], r[3], r[6], formattedShape))	
+			features.append(newFeature %(count, r[0], r[3], r[6], formattedShape))
+			#pull out turn by turn directions
+			distance = directions['route']['legs'][0]['distance']
+			print distance
+			time = directions['route']['legs'][0]['formattedTime']
+			print time
+			maneuvers = directions['route']['legs'][0]['maneuvers']
+			for m in maneuvers:
+                          narrative.append(m['narrative'])
 			count+=1
 		#sleep(.25)
 	print "Requests complete, writing output"
-	fw.write(geojson %(','.join(features)))
+	#fw.write(geojson %(','.join(features)))
+	fw.write(distance)
+	fw.write(time)
+	fw.write('<br>'.join(narrative))

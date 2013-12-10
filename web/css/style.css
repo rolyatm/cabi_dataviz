@@ -79,20 +79,20 @@ h2 {
 #footer {
   position: fixed;
   bottom: 0px;
-  left: 0px;
+  left: 33%;
   height: 30px;
   padding-bottom: .2em;
-  padding-left: 36.5em;
+  padding-left: .2em;
   font-size: .67em;
 }
 
 #instructions {
   position: fixed;
-  right: 0px;
+  left: 33%;
   top: 0px;
   padding: .2em;
-  padding-right: .4em;
-  text-align: right;
+  padding-left: .6em;
+  padding-right: .6em;
   font-size: .67em;
   background: rgba(255,255,255,.6);
 }
@@ -126,4 +126,14 @@ a:link {
 	stroke-width: 2px;
 }
 
+.leaflet-popup-content h3{
+  margin-top: .2em;
+  margin-bottom: .2em;
+  
+}
+  
+.leaflet-popup-tip {
+  width: 0px;
+  height: 0px;
+}
 
