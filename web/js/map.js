@@ -56,7 +56,7 @@ d3.json("data/cabi_stations_2012.geojson", function(collection) {
     });
     
     //interactivity
-    sfeature.on("mousedown",function(d){
+    sfeature.on("mousedown", function(d){
       var coordinates = d3.mouse(this);
       //checks to see if user click is on a new origin node or a shift+click to select an end
       if (d3.event.shiftKey) {
@@ -76,26 +76,56 @@ d3.json("data/cabi_stations_2012.geojson", function(collection) {
         stationSelected = d.properties.TERMINAL_N;
         station2Selected = 0;
         d3.selectAll(".stationNode").attr("class", "stationNode sn_unselected").style("fill","#B6B6B6").style("fill-opacity", "1").transition().duration(500).attr("r", radiusScale(.05));
-        d3.select("#origin").html("Station: " + stationLUT[stationSelected][0]); 		
+        d3.select("#origin").html("Station: " + stationLUT[stationSelected][0]);                
         d3.select(this).attr("class", "stationNode sn_selected").style("fill", "#FFCB00").transition().duration(500).attr("r", radiusScale(.1));
         map.setView([stationLUT[stationSelected][2],stationLUT[stationSelected][1]]);
         showRoutes(stationSelected);
       }
     });
+    
+    sfeature.on("touchstart", function(d){
+      var coordinates = d3.mouse(this);
+      //checks to see if user click is on a new origin node or a shift+click to select an end
+      if (d3.event.shiftKey) {
+        if (stationSelected != 0) {
+          station2Selected = d.properties.TERMINAL_N;
+          d3.select(this).attr("class", "stationNode sn_end_selected").style("fill-opacity", "1");
+          d3.selectAll(".sn_end").style("fill-opacity", ".25");
+          d3.selectAll(".sn_unselected").style("fill-opacity", ".25");
+          showRoutes(stationSelected, d.properties.TERMINAL_N);
+          showPopup(stationLUT[stationSelected], stationLUT[d.properties.TERMINAL_N]);
+        }    
+      }
+      else {
+        map.closePopup();
+        d3.select("#graphtext").selectAll("text").data([]).exit().remove();
+        graph.selectAll("rect").data([]).exit().remove();
+        stationSelected = d.properties.TERMINAL_N;
+        station2Selected = 0;
+        d3.selectAll(".stationNode").attr("class", "stationNode sn_unselected").style("fill","#B6B6B6").style("fill-opacity", "1").transition().duration(500).attr("r", radiusScale(.05));
+        d3.select("#origin").html("Station: " + stationLUT[stationSelected][0]);                
+        d3.select(this).attr("class", "stationNode sn_selected").style("fill", "#FFCB00").transition().duration(500).attr("r", radiusScale(.1));
+        map.setView([stationLUT[stationSelected][2],stationLUT[stationSelected][1]]);
+        showRoutes(stationSelected);
+      }
+    });
+    
     sfeature.on("mouseover", function(d){
       d3.select(this).style("cursor", "pointer")
         .transition().duration(500).delay(0).each(c_flash);
         //.transition().duration(100).style("stroke-width", "1.5px");
       add_map_label(d);
       if (stationSelected == 0) { 
-        d3.select("#origin").html("Station: " + stationLUT[d.properties.TERMINAL_N][0]);        	
+        d3.select("#origin").html("Station: " + stationLUT[d.properties.TERMINAL_N][0]);                
       }
-    }); 
-    sfeature.on("mouseout",function(d){
+    });
+    
+    sfeature.on("mouseout", function(d){
       d3.select(this).transition().duration(100).style("stroke-width", ".5px");
       remove_map_label();
     }); 
-    map.on("viewreset", reset); 
+     
+    map.on("viewreset", reset);
     
     function reset() {
       sfeature.attr("cx", function(d) { return project(d.geometry.coordinates)[0]; })
@@ -187,6 +217,10 @@ function drawGraph(gData) {
     showRoutes(stationSelected, d[0]);
     showPopup(stationLUT[stationSelected], stationLUT[d[0]]);
   });
+  bars.on("touchstart",function(d){
+    showRoutes(stationSelected, d[0]);
+    showPopup(stationLUT[stationSelected], stationLUT[d[0]]);
+  });
   
   //add labels
   var text = gText.selectAll("text")
@@ -219,6 +253,10 @@ function drawGraph(gData) {
     remove_map_label();
   });
   text.on("mousedown",function(d){
+    showRoutes(stationSelected, d[0]); 
+    showPopup(stationLUT[stationSelected], stationLUT[d[0]]);
+  });
+  text.on("touchstart",function(d){
     showRoutes(stationSelected, d[0]); 
     showPopup(stationLUT[stationSelected], stationLUT[d[0]]);
   });
@@ -280,7 +318,6 @@ function showPopup(from, to) {
       } else {
         //code to show popup
         var rCount = d3.select("#routes").selectAll("path").data()[0].properties.count;
-        console.log (rCount);
         var  distance = collection.route.distance,
           time = collection.route.formattedTime,
           turns = sprintf("<h3>%s to %s - %s total rides</h3><strong>Distance</strong> %s miles &nbsp;&nbsp;&nbsp;<strong>Travel time</strong> %s<br><strong>Directions</strong><br>", from[0], to[0], rCount, distance.toString().slice(0,-1), time);
