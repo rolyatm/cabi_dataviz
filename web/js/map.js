@@ -285,6 +285,7 @@ function c_flash() {
 
 function add_map_label(data) {
   g.append("text")
+        .attr("id", "mapLabel")
         .attr("x", project(data.geometry.coordinates)[0])
         .attr("y", project(data.geometry.coordinates)[1]-map.getZoom())
         .attr("filter", "url(#f3)")
@@ -335,6 +336,8 @@ function showPopup(from, to) {
           popup.setLatLng([to[2] > from[2] ? from[2] : to[2], (to[1] > from[1] ? to[1] : from[1]) + popupOffset])
             .openOn(map);
         });
+        var text = g.selectAll("text");
+        text.transition().duration(500).attr("x", function() { return text.attr("x") - text.node().offsetWidth / 2 });//style(       "text-anchor", "end");
       }
-    });
+    })
 }
